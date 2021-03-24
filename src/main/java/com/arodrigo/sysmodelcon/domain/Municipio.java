@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity      /*Cidade*/
 public class Municipio implements Serializable
 {  
@@ -24,8 +22,7 @@ public class Municipio implements Serializable
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    
-    @JsonManagedReference
+        
     @ManyToOne
     @JoinColumn(name="provincia_id")
     private Provincia provincia;
