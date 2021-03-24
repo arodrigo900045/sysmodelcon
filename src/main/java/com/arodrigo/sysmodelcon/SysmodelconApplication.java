@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.arodrigo.sysmodelcon.domain.Categoria;
 import com.arodrigo.sysmodelcon.domain.Cliente;
 import com.arodrigo.sysmodelcon.domain.Endereco;
+import com.arodrigo.sysmodelcon.domain.ItemPedido;
 import com.arodrigo.sysmodelcon.domain.Municipio;
 import com.arodrigo.sysmodelcon.domain.Pagamento;
 import com.arodrigo.sysmodelcon.domain.PagamentoComBoleto;
@@ -23,6 +24,7 @@ import com.arodrigo.sysmodelcon.domain.enums.TipoCliente;
 import com.arodrigo.sysmodelcon.repositories.CategoriaRepository;
 import com.arodrigo.sysmodelcon.repositories.ClienteRepository;
 import com.arodrigo.sysmodelcon.repositories.EnderecoRepository;
+import com.arodrigo.sysmodelcon.repositories.ItemPedidoRepository;
 import com.arodrigo.sysmodelcon.repositories.MunicipioRepository;
 import com.arodrigo.sysmodelcon.repositories.PagamentoRepository;
 import com.arodrigo.sysmodelcon.repositories.PedidoRepository;
@@ -48,6 +50,9 @@ public class SysmodelconApplication implements CommandLineRunner
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
 	
 	
 	public static void main(String[] args) 
@@ -115,6 +120,20 @@ public class SysmodelconApplication implements CommandLineRunner
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 240000.0);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 11000.0);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 20000.00, 1, 72000.0);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		
 	}
 
 }
