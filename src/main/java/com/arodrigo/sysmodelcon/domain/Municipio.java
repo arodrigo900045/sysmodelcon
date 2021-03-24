@@ -1,13 +1,19 @@
 package com.arodrigo.sysmodelcon.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity      /*Cidade*/
 public class Municipio implements Serializable
@@ -19,9 +25,14 @@ public class Municipio implements Serializable
     private Integer id;
     private String nome;
     
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="provincia_id")
     private Provincia provincia;
+    
+    @ElementCollection
+    @CollectionTable(name = "DestritoUrbano")
+    private Set<String> destritoUrbano = new HashSet<>();
     
     public Municipio()
     {    	
@@ -63,6 +74,17 @@ public class Municipio implements Serializable
 	public void setProvincia(Provincia provincia) 
 	{
 		this.provincia = provincia;
+	}
+	
+
+	public Set<String> getDestritoUrbano() 
+	{
+		return destritoUrbano;
+	}
+
+	public void setDestritoUrbano(Set<String> destritoUrbano) 
+	{
+		this.destritoUrbano = destritoUrbano;
 	}
 
 	@Override

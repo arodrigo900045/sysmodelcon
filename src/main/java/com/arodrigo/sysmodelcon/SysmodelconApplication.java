@@ -65,9 +65,10 @@ public class SysmodelconApplication implements CommandLineRunner
 		Provincia prov1 = new Provincia(null, "Luanda");
 		Provincia prov2 = new Provincia(null, "Benguela");
 		
-		Municipio mun1 = new Municipio(null, "Zango", prov1);
+		Municipio mun1 = new Municipio(null, "Viana", prov1);
+		mun1.getDestritoUrbano().addAll(Arrays.asList("Zango","Estalagem"));
 		Municipio mun2 = new Municipio(null, "Lobito", prov2);
-		Municipio mun3 = new Municipio(null, "Dombe Grande", prov2);
+		Municipio mun3 = new Municipio(null, "Bocoio", prov2);
 		
 		prov1.getMunicipios().addAll(Arrays.asList(mun1));
 		prov2.getMunicipios().addAll(Arrays.asList(mun2, mun3));
@@ -79,8 +80,8 @@ public class SysmodelconApplication implements CommandLineRunner
 		Cliente cli1 = new Cliente(null, "Elison Gomes", "Elison.gomes@youthrodive.com", "000142506LA021", TipoCliente.PESSOAFISICA);
 		cli1.getTelefones().addAll(Arrays.asList("923765422", "912432175"));
 		
-		Endereco e1 = new Endereco(null, "Rua Manjorca Yangulo", "300", "Apto 201", "Prenda", "23213445", cli1, mun1);
-		Endereco e2 = new Endereco(null, "Avenida Brasil", "105", "Sala 800", "Maianga", "838382742", cli1, mun2);
+		Endereco e1 = new Endereco(null, "Rua Manjorca Yangulo", "300", "Apto 201", "Prenda", "23213445", cli1, mun1);		
+		Endereco e2 = new Endereco(null, "Avenida Brasil", "105", "Sala 800", "Luanda", "838382742", cli1, mun2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
