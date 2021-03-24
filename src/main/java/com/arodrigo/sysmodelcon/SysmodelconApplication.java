@@ -8,10 +8,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.arodrigo.sysmodelcon.domain.Categoria;
+import com.arodrigo.sysmodelcon.domain.Cliente;
+import com.arodrigo.sysmodelcon.domain.Endereco;
 import com.arodrigo.sysmodelcon.domain.Municipio;
 import com.arodrigo.sysmodelcon.domain.Produto;
 import com.arodrigo.sysmodelcon.domain.Provincia;
+import com.arodrigo.sysmodelcon.domain.enums.TipoCliente;
 import com.arodrigo.sysmodelcon.repositories.CategoriaRepository;
+import com.arodrigo.sysmodelcon.repositories.ClienteRepository;
+import com.arodrigo.sysmodelcon.repositories.EnderecoRepository;
 import com.arodrigo.sysmodelcon.repositories.MunicipioRepository;
 import com.arodrigo.sysmodelcon.repositories.ProdutoRepository;
 import com.arodrigo.sysmodelcon.repositories.ProvinciaRepository;
@@ -27,6 +32,10 @@ public class SysmodelconApplication implements CommandLineRunner
 	private ProvinciaRepository provinciaRepository;
 	@Autowired
 	private MunicipioRepository municipioRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) 
 	{
@@ -65,6 +74,18 @@ public class SysmodelconApplication implements CommandLineRunner
 		
 		provinciaRepository.saveAll(Arrays.asList(prov1, prov2));
 		municipioRepository.saveAll(Arrays.asList(mun1, mun2, mun3));
+		
+		
+		Cliente cli1 = new Cliente(null, "Elison Gomes", "Elison.gomes@youthrodive.com", "000142506LA021", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("923765422", "912432175"));
+		
+		Endereco e1 = new Endereco(null, "Rua Manjorca Yangulo", "300", "Apto 201", "Prenda", "23213445", cli1, mun1);
+		Endereco e2 = new Endereco(null, "Avenida Brasil", "105", "Sala 800", "Maianga", "838382742", cli1, mun2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
